@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Biblioteca de barrio</title>
+  <meta name="description" content="Gestión de préstamos, socios y reservas de una biblioteca de barrio, construida con tres componentes desacoplados.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="marca">
+      <h1>Biblioteca de barrio</h1>
+      <p>Préstamos sin papel</p>
+    </div>
+    <div class="reloj" role="group" aria-label="Fecha de la aplicación">
+      <label for="fecha">Fecha de hoy</label>
+      <input type="date" id="fecha">
+      <button type="button" class="chico" data-dias="1">+1 día</button>
+      <button type="button" class="chico" data-dias="7">+7 días</button>
+      <button type="button" class="chico secundario" id="hoy-real">Hoy</button>
+    </div>
+  </header>
+
+  <div id="aviso" role="status" aria-live="polite" hidden></div>
+
+  <div class="barra-socio">
+    <label for="socio-actual">Operando como socio</label>
+    <select id="socio-actual"></select>
+  </div>
+
+  <nav class="pestanas" aria-label="Secciones">
+    <button type="button" class="pestana" data-pestana="catalogo" aria-selected="true">Catálogo</button>
+    <button type="button" class="pestana" data-pestana="socios" aria-selected="false">Socios</button>
+    <button type="button" class="pestana" data-pestana="prestamos" aria-selected="false">Préstamos y reservas</button>
+    <button type="button" class="pestana" data-pestana="arquitectura" aria-selected="false">Arquitectura</button>
+  </nav>
+
+  <main>
+    <section id="panel-catalogo" class="panel">
+      <div class="buscador">
+        <label for="buscador">Buscar por título</label>
+        <input type="search" id="buscador" placeholder="Por ejemplo: quijote" autocomplete="off">
+      </div>
+      <div id="resultados" class="lista-libros"></div>
+    </section>
+
+    <section id="panel-socios" class="panel" hidden>
+      <form id="form-socio" class="form-linea">
+        <label for="nombre-socio">Dar de alta un socio</label>
+        <div class="campo-boton">
+          <input type="text" id="nombre-socio" placeholder="Nombre y apellidos" autocomplete="off" required>
+          <button type="submit">Dar de alta</button>
+        </div>
+      </form>
+      <div class="tabla-caja"><table id="tabla-socios"></table></div>
+    </section>
+
+    <section id="panel-prestamos" class="panel" hidden>
+      <h2>Préstamos activos</h2>
+      <div class="tabla-caja"><table id="tabla-prestamos"></table></div>
+      <h2>Reservas</h2>
+      <div class="tabla-caja"><table id="tabla-reservas"></table></div>
+    </section>
+
+    <section id="panel-arquitectura" class="panel" hidden>
+      <h2>Tres componentes que colaboran sin conocer el interior de los demás</h2>
+      <p>Esta web está hecha con la misma arquitectura que la versión de consola en Python:
+         <strong>Catalogo</strong>, <strong>Socios</strong> y <strong>Prestamos</strong> son módulos independientes
+         (<code>js/catalogo.js</code>, <code>js/socios.js</code>, <code>js/prestamos.js</code>).
+         Solo Prestamos depende de los otros dos, y únicamente a través de sus funciones públicas.</p>
+      <figure class="diagrama">
+        <img src="diagrama.svg" alt="Diagrama: el componente Prestamos depende de Catalogo (obtener, marcar_prestado, marcar_devuelto) y de Socios (obtener, esta_sancionado, sancionar). Catalogo y Socios no dependen de nadie.">
+      </figure>
+
+      <h2>Decisión sobre la petición del cliente</h2>
+      <blockquote>«Para ir más rápido, que Prestamos lea directamente la lista de libros de Catalogo.»</blockquote>
+      <p><strong>No lo hago.</strong> Si Prestamos leyera la lista interna de Catalogo, dependería de cómo guarda los libros ese componente, y cualquier cambio en él (por ejemplo, añadir ejemplares o pasar a una base de datos) rompería Prestamos sin avisar. En su lugar Prestamos usa solo <code>obtener(id)</code>, <code>marcar_prestado(id)</code> y <code>marcar_devuelto(id)</code>, que son igual de rápidos de usar; si algún día hace falta algo más, se añade una función pública a Catalogo.</p>
+
+      <h2>Reglas de la biblioteca</h2>
+      <ul class="reglas">
+        <li>Un socio no puede tener más de <strong>2 libros</strong> a la vez.</li>
+        <li>Cada préstamo <strong>caduca a los 7 días</strong>.</li>
+        <li>Cada título tiene <strong>varios ejemplares</strong>, cada uno con su propio estado.</li>
+        <li>Un socio <strong>sancionado</strong> no puede pedir libros (se sanciona tantos días como de retraso al devolver).</li>
+        <li>Se pueden <strong>reservar</strong> libros ya prestados; el ejemplar devuelto se guarda para quien reservó primero.</li>
+      </ul>
+      <p class="nota">Para probar la caducidad y las sanciones sin esperar, usa los botones «+1 día» y «+7 días» de arriba.</p>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <span>Los datos se guardan solo en este navegador.</span>
+    <button type="button" class="chico secundario" id="reiniciar">Restablecer datos de ejemplo</button>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

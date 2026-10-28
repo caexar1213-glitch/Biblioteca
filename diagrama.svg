@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 490" width="820" height="490" role="img" aria-labelledby="t d">
+  <title id="t">Diagrama de componentes de la biblioteca</title>
+  <desc id="d">Prestamos depende de Catalogo y de Socios. Catalogo y Socios no dependen de nadie.</desc>
+  <defs>
+    <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a3b12"/>
+    </marker>
+  </defs>
+  <rect width="820" height="490" fill="#ffffff"/>
+
+  <!-- PRESTAMOS -->
+  <g>
+    <rect x="230" y="30" width="360" height="150" rx="8" fill="#fbf6ea" stroke="#1f4d3a" stroke-width="2"/>
+    <rect x="230" y="30" width="360" height="42" rx="8" fill="#1f4d3a"/>
+    <rect x="230" y="60" width="360" height="12" fill="#1f4d3a"/>
+    <text x="410" y="49" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#cfe3d8">«componente»  prestamos.py</text>
+    <text x="410" y="66" text-anchor="middle" font-family="Georgia, serif" font-size="17" font-weight="bold" fill="#ffffff">Prestamos</text>
+    <text x="246" y="97" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#1f4d3a">Clases</text>
+    <text x="300" y="97" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2b2b2b">Prestamo, Reserva</text>
+    <text x="246" y="121" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#1f4d3a">Interfaz pública</text>
+    <text x="246" y="141" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2b2b2b">prestar(socio, libro) · devolver(prestamo)</text>
+    <text x="246" y="158" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2b2b2b">reservar(socio, libro) · cancelar_reserva(id)</text>
+  </g>
+
+  <!-- CATALOGO -->
+  <g>
+    <rect x="30" y="290" width="330" height="150" rx="8" fill="#fbf6ea" stroke="#1f4d3a" stroke-width="2"/>
+    <rect x="30" y="290" width="330" height="42" rx="8" fill="#1f4d3a"/>
+    <rect x="30" y="320" width="330" height="12" fill="#1f4d3a"/>
+    <text x="195" y="309" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#cfe3d8">«componente»  catalogo.py</text>
+    <text x="195" y="326" text-anchor="middle" font-family="Georgia, serif" font-size="17" font-weight="bold" fill="#ffffff">Catalogo</text>
+    <text x="46" y="357" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#1f4d3a">Clases</text>
+    <text x="100" y="357" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2b2b2b">Libro, Ejemplar</text>
+    <text x="46" y="381" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#1f4d3a">Interfaz pública</text>
+    <text x="46" y="401" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2b2b2b">buscar(titulo) · obtener(id)</text>
+    <text x="46" y="418" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2b2b2b">marcar_prestado(id) · marcar_devuelto(id)</text>
+  </g>
+
+  <!-- SOCIOS -->
+  <g>
+    <rect x="460" y="290" width="330" height="150" rx="8" fill="#fbf6ea" stroke="#1f4d3a" stroke-width="2"/>
+    <rect x="460" y="290" width="330" height="42" rx="8" fill="#1f4d3a"/>
+    <rect x="460" y="320" width="330" height="12" fill="#1f4d3a"/>
+    <text x="625" y="309" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#cfe3d8">«componente»  socios.py</text>
+    <text x="625" y="326" text-anchor="middle" font-family="Georgia, serif" font-size="17" font-weight="bold" fill="#ffffff">Socios</text>
+    <text x="476" y="357" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#1f4d3a">Clases</text>
+    <text x="530" y="357" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2b2b2b">Socio</text>
+    <text x="476" y="381" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#1f4d3a">Interfaz pública</text>
+    <text x="476" y="401" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2b2b2b">alta(nombre) · obtener(id)</text>
+    <text x="476" y="418" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2b2b2b">esta_sancionado(id) · sancionar(id, hasta)</text>
+  </g>
+
+  <!-- DEPENDENCIAS (una flecha por cada una) -->
+  <line x1="310" y1="182" x2="196" y2="288" stroke="#8a3b12" stroke-width="2.5" marker-end="url(#flecha)"/>
+  <line x1="510" y1="182" x2="624" y2="288" stroke="#8a3b12" stroke-width="2.5" marker-end="url(#flecha)"/>
+
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#8a3b12">
+    <text x="225" y="208" text-anchor="end">obtener(id)</text>
+    <text x="225" y="224" text-anchor="end">marcar_prestado(id)</text>
+    <text x="225" y="240" text-anchor="end">marcar_devuelto(id)</text>
+    <text x="590" y="208">obtener(id)</text>
+    <text x="590" y="224">esta_sancionado(id)</text>
+    <text x="590" y="240">sancionar(id, hasta)</text>
+  </g>
+
+  <!-- Leyenda -->
+  <line x1="30" y1="467" x2="70" y2="467" stroke="#8a3b12" stroke-width="2.5" marker-end="url(#flecha)"/>
+  <text x="82" y="471" font-family="Georgia, serif" font-size="13" fill="#2b2b2b">depende de (usa solo la interfaz pública) · main.py solo orquesta, no es un componente</text>
+</svg>
